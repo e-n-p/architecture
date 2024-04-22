@@ -17,7 +17,7 @@ export class AccountComponent {
   }
   
   ngOnInit(): void {
-    this.serivce.getUsers().subscribe(this.usersObserver);
+    this.serivce.getUsers().subscribe(this.usersObserver); //how to access the users as an observable 
   }
 
   usersObserver: Observer<User[]> = {
@@ -25,8 +25,8 @@ export class AccountComponent {
       this.route.paramMap.subscribe( paramMap => {
         this.requestedUserID = Number(paramMap.get('id'));
       })
-      if (this.requestedUserID){
-        this.requestedUser = users[this.requestedUserID];
+      if (this.requestedUserID && !(this.requestedUserID < 1 || this.requestedUserID > users.length)){
+        this.requestedUser = users[this.requestedUserID - 1];
       } else {
         this.requestedUser = users[0];
       }
